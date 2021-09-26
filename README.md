@@ -1,3 +1,3 @@
 # png2tm2
-Separated TIM2  from PNG in Fothsid/OBTool.
-Generic PNG(RGBA) to TM2 conversion tool.
+Separated feature that is Convert PNG to TM2 From Fothsid/OBTool.   
+Generic PNG(RGBA) to pallted color of TM2 conversion tool.
