@@ -270,10 +270,9 @@ void Cpngtotm2Dlg::OnDropFiles(HDROP hDropInfo)
 		pngpath.ReleaseBuffer();
 		dirpath = pngpath.Left(pngpath.ReverseFind('\\'));
 		error = Cpngtotm2Dlg::convertpng2tm2(pngpath, dirpath);
-	}
-
-	
-	
+	}	
 	CDialogEx::OnDropFiles(hDropInfo);
-
+	CString errorDisplay;
+	errorDisplay.Format(_T("%s"), _T("Done!"));
+	AfxMessageBox(errorDisplay);
 }
