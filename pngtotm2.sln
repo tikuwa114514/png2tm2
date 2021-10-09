@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pngtotm2", "pngtotm2\pngtotm2.vcxproj", "{16CCA7CB-7ACE-450A-9BD6-0D735C4B8490}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragAndDrop", "DragAndDrop\DragAndDrop.vcxproj", "{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{16CCA7CB-7ACE-450A-9BD6-0D735C4B8490}.Release|x64.Build.0 = Release|x64
 		{16CCA7CB-7ACE-450A-9BD6-0D735C4B8490}.Release|x86.ActiveCfg = Release|Win32
 		{16CCA7CB-7ACE-450A-9BD6-0D735C4B8490}.Release|x86.Build.0 = Release|Win32
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Debug|x64.ActiveCfg = Debug|x64
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Debug|x64.Build.0 = Debug|x64
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Debug|x86.ActiveCfg = Debug|Win32
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Debug|x86.Build.0 = Debug|Win32
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Release|x64.ActiveCfg = Release|x64
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Release|x64.Build.0 = Release|x64
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Release|x86.ActiveCfg = Release|Win32
-		{1A242D8E-6F4A-43FD-97AC-37B2797AB29F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
