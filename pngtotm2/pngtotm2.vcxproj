@@ -97,7 +97,7 @@
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -195,6 +195,7 @@
     <ClInclude Include="pngtotm2Dlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\OBTool\src\imageindexing.cpp" />
@@ -208,6 +209,7 @@
     </ClCompile>
     <ClCompile Include="pngtotm2.cpp" />
     <ClCompile Include="pngtotm2Dlg.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="pngtotm2.rc" />

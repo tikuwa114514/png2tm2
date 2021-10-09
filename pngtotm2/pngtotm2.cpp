@@ -6,12 +6,44 @@
 #include "framework.h"
 #include "pngtotm2.h"
 #include "pngtotm2Dlg.h"
+#include "util.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
+
+int main(int argc, char** argv)
+{
+	setlocale(LC_CTYPE, "jpn");
+	if (argc == 1)
+	{
+		return wWinMain(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), SW_HIDE);
+	}
+	else if (argc == 2)
+	{
+		char* filename = argv[1];
+		int codepage = GetConsoleOutputCP();
+		int filenamesize = strlen(filename);
+		const int wfilenamesize = MultiByteToWideChar(codepage, 0, &filename[0], filenamesize , NULL, 0);
+		wchar_t* wfilename = new wchar_t[filenamesize] {0};
+		MultiByteToWideChar(codepage, 0, &filename[0], filenamesize, wfilename,wfilenamesize );
+		std::wstring wstrfilename(wfilename);
+		std::wstring dirpath = wstrfilename.substr(0, wstrfilename.find_last_of('\\'));
+		int error = convertimage(wstrfilename,dirpath);
+		if (error!=0)
+		{
+			ErrMSG(L"Failed Convert Image");
+		}
+		return 0;
+	}
+	else
+	{
+		ErrMSG(L"invalid argument");
+		return -1;
+	}
+}
 // Cpngtotm2App
 
 BEGIN_MESSAGE_MAP(Cpngtotm2App, CWinApp)

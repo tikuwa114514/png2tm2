@@ -8,6 +8,7 @@
 #include "pngtotm2Dlg.h"
 #include "afxdialogex.h"
 #include "tim2utils.h"
+#include "util.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -165,13 +166,13 @@ HCURSOR Cpngtotm2Dlg::OnQueryDragIcon()
 void Cpngtotm2Dlg::OnBnClickedselectpng()
 {
 	#define DEF_EXT  _T("*.png")
-	#define FILTER   _T("PNG(*.png)|*.png")
-	CString pngpath;
-	CFileDialog dlg(TRUE, DEF_EXT, NULL, 0, FILTER);
+	const wchar_t* FILTER = _T("PNG Files (*.png)|*.png|")_T("TM2 Files (*.tm2)|*.tm2|");
+	CString imagepath;
+	CFileDialog dlg(TRUE, DEF_EXT, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, FILTER,NULL,0,TRUE);
 	if (dlg.DoModal() == IDOK)
 	{
-		pngpath = dlg.GetPathName();
-		PNGPath.SetWindowTextW(pngpath);
+		imagepath = dlg.GetPathName();
+		PNGPath.SetWindowTextW(imagepath);
 	}
 	else
 	{
@@ -217,62 +218,54 @@ void Cpngtotm2Dlg::OnBnClickedconvert()
 		AfxMessageBox(errorDisplay);
 		return;
 	}
-	Cpngtotm2Dlg::convertpng2tm2(pngpath, dirpath);
+	DWORD error;
+	std::wstring wpngpath(pngpath);
+	std::wstring wdirpath(dirpath);
+	error = convertimage(wpngpath, wdirpath);
+	if (errno != 0)
+	{
+		CString errorDisplay;
+		errorDisplay.Format(_T("Failed convert %s"), wpngpath.c_str());
+		AfxMessageBox(errorDisplay);
+		return;
+	}
+	CString errorDisplay;
+	errorDisplay.Format(_T("%s"), _T("Convert is finished!"));
+	AfxMessageBox(errorDisplay);
 	return;
 }
 
-DWORD Cpngtotm2Dlg::convertpng2tm2(CString pngpath,CString dirpath) {
-	CString pngname, tm2path;
-	pngname = pngpath.Mid(pngpath.ReverseFind('\\') + 1);
-	pngname = pngname.Left(pngname.ReverseFind('.') + 1);
-	tm2path = dirpath + "\\" + pngname + _T("tm2");
-	uint32_t dataSize;
-	int w, h;
-	void* data = OutbreakPngToTm2(CT2A(pngpath), 0, &w, &h, &dataSize);
-	if (data)
-	{
-		FILE* outfp;
-		outfp = fopen(CT2A(tm2path), "wb");
-		if (outfp == NULL)
-		{
-			CString errorDisplay;
-			errorDisplay.Format(_T("Error:%s"), _T("Can't write tm2"));
-			AfxMessageBox(errorDisplay);
-			return -1;
-		}
-		if (fwrite(data, sizeof(char), dataSize, outfp) < 1) {
-			CString errorDisplay;
-			errorDisplay.Format(_T("Error:%s"), _T("Faild save tm2"));
-			AfxMessageBox(errorDisplay);
-		}
-		fclose(outfp);
-		free(data);
-		return 0;
-	}
-	else
-	{
-		CString errorDisplay;
-		errorDisplay.Format(_T("Error:%s"), _T("Faild Convert PNG to TM2"));
-		AfxMessageBox(errorDisplay);
-		return -1;
-	}
-}
+
 
 void Cpngtotm2Dlg::OnDropFiles(HDROP hDropInfo)
 {
 	// TODO: ここにメッセージ ハンドラー コードを追加するか、既定の処理を呼び出します。
 	UINT length = DragQueryFile(hDropInfo, -1, NULL, 0);
-	CString pngpath , dirpath;
+	CString imagepath, dirpath;
 	DWORD error;
 	for (size_t i = 0; i < length; i++)
 	{
-		DragQueryFile(hDropInfo, i, pngpath.GetBuffer(MAX_PATH), MAX_PATH + 1);
-		pngpath.ReleaseBuffer();
-		dirpath = pngpath.Left(pngpath.ReverseFind('\\'));
-		error = Cpngtotm2Dlg::convertpng2tm2(pngpath, dirpath);
+		DragQueryFile(hDropInfo, i, imagepath.GetBuffer(MAX_PATH), MAX_PATH + 1);
+		imagepath.ReleaseBuffer();
+		dirpath = imagepath.Left(imagepath.ReverseFind('\\'));
+		std::wstring wimagepath(imagepath);
+		std::wstring wdirpath(dirpath);
+		error = convertimage(wimagepath, wdirpath);
+		if (errno != 0)
+		{
+			if (errno != 0)
+			{
+				//CDialogEx::OnDropFiles(hDropInfo);
+				CString errorDisplay;
+				errorDisplay.Format(_T("Failed convert %s"), wimagepath.c_str());
+				AfxMessageBox(errorDisplay);
+			}
+			CString errorDisplay;
+			errorDisplay.Format(_T("Failed convert %s"), wimagepath.c_str());
+			AfxMessageBox(errorDisplay);
+		}
 	}	
-	CDialogEx::OnDropFiles(hDropInfo);
 	CString errorDisplay;
-	errorDisplay.Format(_T("%s"), _T("Done!"));
+	errorDisplay.Format(_T("%s"), _T("Convert is finished!"));
 	AfxMessageBox(errorDisplay);
 }

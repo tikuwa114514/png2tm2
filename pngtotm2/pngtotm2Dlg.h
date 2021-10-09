@@ -34,7 +34,6 @@ public:
 	afx_msg void OnBnClickedselectpng();
 	CEdit PNGPath;
 	CEdit DirPath;
-	DWORD convertpng2tm2(CString pngpath, CString dirpath);
 	afx_msg void OnBnClickedselectdir();
 	afx_msg void OnBnClickedconvert();
 	afx_msg void OnDropFiles(HDROP hDropInfo);
