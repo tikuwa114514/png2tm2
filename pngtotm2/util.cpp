@@ -59,6 +59,7 @@ DWORD converttm2png(std::wstring tm2path, std::wstring dirpath) {
 	if (tm2fp == NULL)
 	{
 		ErrMSG(L"Faild read tm2");
+		delete tm2pathchr; delete pngpathchr;
 		return -1;
 	}
 
@@ -70,6 +71,7 @@ DWORD converttm2png(std::wstring tm2path, std::wstring dirpath) {
 	fread(tm2buffer, sizeof(char), tm2size, tm2fp);
 
 	int error = OutbreakTm2ToPng(tm2buffer, pngpathchr);
+	delete tm2pathchr; delete pngpathchr;
 	if (error==0)
 	{
 		ErrMSG(L"Faild convrt png to tm2");

@@ -27,11 +27,12 @@ int main(int argc, char** argv)
 		int codepage = GetConsoleOutputCP();
 		int filenamesize = strlen(filename);
 		const int wfilenamesize = MultiByteToWideChar(codepage, 0, &filename[0], filenamesize , NULL, 0);
-		wchar_t* wfilename = new wchar_t[filenamesize] {0};
+		wchar_t* wfilename = new wchar_t[filenamesize+1] {0};
 		MultiByteToWideChar(codepage, 0, &filename[0], filenamesize, wfilename,wfilenamesize );
 		std::wstring wstrfilename(wfilename);
 		std::wstring dirpath = wstrfilename.substr(0, wstrfilename.find_last_of('\\'));
 		int error = convertimage(wstrfilename,dirpath);
+		delete wfilename;
 		if (error!=0)
 		{
 			ErrMSG(L"Failed Convert Image");
