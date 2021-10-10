@@ -1,5 +1,5 @@
 # png2tm2   
-Separated feature that is Convert both PNG and TM2 From **Fothsid/OBTool**.   
+Separated feature that is convert both PNG and TM2 From **Fothsid/OBTool**.   
 This is a tool to convert between common RGBA 32bit color png and tm2.   
 
 # uasage   
