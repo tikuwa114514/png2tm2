@@ -15,22 +15,21 @@
 #endif
 
 
-// アプリケーションのバージョン情報に使われる CAboutDlg ダイアログ
 
 class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
 
-// ダイアログ データ
+
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
+	virtual void DoDataExchange(CDataExchange* pDX);    
 
-// 実装
+
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -48,7 +47,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// Cpngtotm2Dlg ダイアログ
+
 
 
 
@@ -76,15 +75,13 @@ BEGIN_MESSAGE_MAP(Cpngtotm2Dlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// Cpngtotm2Dlg メッセージ ハンドラー
+
 
 BOOL Cpngtotm2Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// "バージョン情報..." メニューをシステム メニューに追加します。
 
-	// IDM_ABOUTBOX は、システム コマンドの範囲内になければなりません。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
@@ -102,14 +99,12 @@ BOOL Cpngtotm2Dlg::OnInitDialog()
 		}
 	}
 
-	// このダイアログのアイコンを設定します。アプリケーションのメイン ウィンドウがダイアログでない場合、
-	//  Framework は、この設定を自動的に行います。
-	SetIcon(m_hIcon, TRUE);			// 大きいアイコンの設定
-	SetIcon(m_hIcon, FALSE);		// 小さいアイコンの設定
 
-	// TODO: 初期化をここに追加します。
+	SetIcon(m_hIcon, TRUE);	
+	SetIcon(m_hIcon, FALSE);
+
 	DragAcceptFiles();
-	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
+	return TRUE;  
 }
 
 void Cpngtotm2Dlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -125,19 +120,16 @@ void Cpngtotm2Dlg::OnSysCommand(UINT nID, LPARAM lParam)
 	}
 }
 
-// ダイアログに最小化ボタンを追加する場合、アイコンを描画するための
-//  下のコードが必要です。ドキュメント/ビュー モデルを使う MFC アプリケーションの場合、
-//  これは、Framework によって自動的に設定されます。
+
 
 void Cpngtotm2Dlg::OnPaint()
 {
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // 描画のデバイス コンテキスト
+		CPaintDC dc(this);
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-		// クライアントの四角形領域内の中央
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
@@ -145,7 +137,7 @@ void Cpngtotm2Dlg::OnPaint()
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// アイコンの描画
+
 		dc.DrawIcon(x, y, m_hIcon);
 	}
 	else
@@ -154,8 +146,7 @@ void Cpngtotm2Dlg::OnPaint()
 	}
 }
 
-// ユーザーが最小化したウィンドウをドラッグしているときに表示するカーソルを取得するために、
-//  システムがこの関数を呼び出します。
+
 HCURSOR Cpngtotm2Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
@@ -194,13 +185,12 @@ void Cpngtotm2Dlg::OnBnClickedselectdir()
 	{
 		return;
 	}
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
 }
 
 
 void Cpngtotm2Dlg::OnBnClickedconvert()
 {
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 	CString pngpath,dirpath;
 	PNGPath.GetWindowTextW(pngpath);
 	DirPath.GetWindowTextW(dirpath);
@@ -239,7 +229,6 @@ void Cpngtotm2Dlg::OnBnClickedconvert()
 
 void Cpngtotm2Dlg::OnDropFiles(HDROP hDropInfo)
 {
-	// TODO: ここにメッセージ ハンドラー コードを追加するか、既定の処理を呼び出します。
 	UINT length = DragQueryFile(hDropInfo, -1, NULL, 0);
 	CString imagepath, dirpath;
 	DWORD error;
