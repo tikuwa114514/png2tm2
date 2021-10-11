@@ -19,4 +19,4 @@ Select "Open File" and "Export DIR" on the form and click "convert".
 you can also convert it by dragging it onto the form.   
 
 # build
-build with "Debug" and "x86".
+Build with "Debug" and "x86" and need MFC build enviroment.
